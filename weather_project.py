@@ -1,5 +1,3 @@
-# WEATHER DATA ANALYSIS 
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -105,26 +103,22 @@ print("\nSeasonal Statistics:\n", season_stats)
 
 #Task 6 - Exporting report and plot
 
-# Task 6 - Exporting report and plots
-
-
 output_dir = "weather_outputs"
 os.makedirs(output_dir, exist_ok=True)
 
-# Save cleaned CSV
+
 clean_csv_path = os.path.join(output_dir, "cleaned_weather_data.csv")
 df_clean.to_csv(clean_csv_path, index=False)
 print(f"Cleaned CSV saved at: {clean_csv_path}")
 
-# Prepare variables for plotting
-daily_temp = daily_mean          # Task 3 se
+
+daily_temp = daily_mean         
 monthly_rain = df.groupby(df.index.month)['rain'].sum()
-df_stats = df.reset_index()      # for scatterplot
+df_stats = df.reset_index()      
 temp_col = 'temp'
 humidity_col = 'rhum'
 date_col = 'date'
 
-# Daily Temperature Trend
 plt.figure(figsize=(12, 5))
 plt.plot(daily_temp.index, daily_temp.values)
 plt.title("Daily Temperature Trend")
@@ -134,7 +128,6 @@ plt.xticks(rotation=45)
 plt.savefig(os.path.join(output_dir, "daily_temperature_trend.png"))
 plt.close()
 
-# Monthly Rainfall Total
 plt.figure(figsize=(12, 5))
 plt.bar(monthly_rain.index.astype(str), monthly_rain.values)
 plt.title("Monthly Rainfall Total")
@@ -144,7 +137,7 @@ plt.xticks(rotation=45)
 plt.savefig(os.path.join(output_dir, "monthly_rainfall.png"))
 plt.close()
 
-# Humidity vs Temperature
+
 plt.figure(figsize=(8, 6))
 sns.scatterplot(data=df_stats, x=temp_col, y=humidity_col)
 plt.title("Humidity vs Temperature")
@@ -155,7 +148,6 @@ plt.close()
 
 print("All CSV and plots saved successfully!")
 
-# Generate Markdown report
 report_path = os.path.join(output_dir, "Weather_Report.md")
 with open(report_path, "w", encoding="utf-8") as report:
     report.write("# Weather Data Analysis Report\n\n")
@@ -187,6 +179,7 @@ with open(report_path, "w", encoding="utf-8") as report:
     report.write("- Cleaned dataset CSV\n")
     report.write("- PNG visualizations\n")
     report.write("- Markdown report\n")
+
 
 
 print(f"Report generated at: {report_path}")
